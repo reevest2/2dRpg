@@ -23,8 +23,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
+        var moved = MoveMovepoint();
+        if (moved)
+        {
+            EventManager.PlayerMoved();
+        }
+    }
 
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private bool MoveMovepoint()
+    {
         if (Vector3.Distance(transform.position, movePoint.position) <= .05f)
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
@@ -32,8 +44,7 @@ public class PlayerController : MonoBehaviour
                 if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), .2f, whatStopsMovement))
                 {
                     movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
-                    CheckForEncounters();
-                    return;
+                    return true;
                 }
             }
 
@@ -42,22 +53,15 @@ public class PlayerController : MonoBehaviour
                 if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f), .2f, whatStopsMovement))
                 {
                     movePoint.position += new Vector3(0f, Input.GetAxisRaw("Vertical"), 0f);
-                    CheckForEncounters();
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
-    private void CheckForEncounters()
+    private void MovePlayer()
     {
-        if (Physics2D.OverlapCircle(transform.position, 0.2f, encounterZone) != null)
-        {
-            if (Random.Range(1, 101) <= 100)
-            {
-                Debug.Log($"Encountered pokemon {count}");
-                count++;
-            }
-        }
+        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
     }
 }
