@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Collision
-  - 
+  - Encounter
   - 
   - 
   - 
@@ -43,4 +43,7 @@ TagManager:
     locked: 0
   - name: Collision
     uniqueID: 141302669
+    locked: 0
+  - name: Encounter
+    uniqueID: 2229624887
     locked: 0
