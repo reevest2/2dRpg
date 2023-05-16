@@ -33,7 +33,6 @@ public class EncounterManager : MonoBehaviour
         }
     }
 
-
     private bool DoEncounterRoll()
     {
         if (Random.Range(1, 100) <= 100)

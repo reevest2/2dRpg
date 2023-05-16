@@ -8,10 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Transform movePoint;
-    private int count = 0;
 
     public LayerMask whatStopsMovement;
-    public LayerMask encounterZone;
 
     // Start is called before the first frame update
     void Start()
